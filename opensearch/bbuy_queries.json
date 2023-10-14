@@ -1,5 +1,25 @@
 {
   "settings": {
     "index.refresh_interval": "5s"
+  },
+  "mappings": {
+    "properties": {
+      "query": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          },
+          "suggest": {
+            "type": "completion"
+          },
+          "stemmed" :{
+            "type": "text",
+            "analyzer": "english"
+          }
+        }
+      }
+    }
   }
 }

@@ -24,12 +24,26 @@ GET bbuy_products/_search
   "query": {
     "boosting": {
       "positive": {
-        #FILL IN
+        "query_string": {
+          "query": "\"ipad 2\"",
+          "fields": ["name^100", "shortDescription^50", "longDescription^10"]
+        }
       },
       "negative": {
-        #FILL IN
+        "bool": {
+          "must_not": [
+            {
+              "range": {
+                "regularPrice": {
+                  "gt": 300,
+                  "lt": 680
+                }
+              }
+            }
+          ]
+        }
       },
-      "negative_boost": 0.2
+      "negative_boost": 0.01
     }
   },
   "_source": ["productId", "name", "shortDescription", "longDescription", "department", "salesRankShortTerm",  "salesRankMediumTerm", "salesRankLongTerm", "regularPrice", "categoryPath"]
